@@ -103,6 +103,10 @@ namespace ContactPro.Controllers
 
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
+
+                // loop over all the selected catagories
+                // save each category selected to the contactcategories table
+
                 return RedirectToAction(nameof(Index));
             }
 

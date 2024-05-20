@@ -1,16 +1,15 @@
 ﻿using ContactPro.Services.Interfaces;
-using System.Security.AccessControl;
 
 namespace ContactPro.Services
 {
     public class ImageService : IImageService
     {
-        private readonly string[] suffixes = { "Bytes", "KB", "MB", "GB", "TB", "PB" }
+        private readonly string[] suffixes = { "Bytes", "KB", "MB", "GB", "TB", "PB" };
         private readonly string defaultImage = "img/DefaultContactImage.png";
 
         public string ConvertByteArrayToFile(byte[] fileData, string extension)
         {
-            if (fileData is null) return defaultImage;
+            if (fileData == null) return defaultImage;
 
             try
             {
@@ -23,7 +22,7 @@ namespace ContactPro.Services
             }
         }
 
-        public async Task<byte[]> ConvertFileToByteArray(IFormFile file)
+        public async Task<byte[]> ConvertFileToByteArrayAsync(IFormFile file)
         {
             try
             {
@@ -33,7 +32,9 @@ namespace ContactPro.Services
                 return byteFile;
             }
             catch (Exception)
-            { throw; }
+            {
+                throw;
+            }
         }
     }
 }

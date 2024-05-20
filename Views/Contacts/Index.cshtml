@@ -94,7 +94,10 @@
                 @Html.DisplayFor(modelItem => item.Created)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImageData)
+                    @if (item.ImageData != null)
+                    {
+                        <p>Yes</p>
+                    }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ImageType)

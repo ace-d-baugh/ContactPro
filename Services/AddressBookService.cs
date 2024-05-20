@@ -30,9 +30,9 @@ namespace ContactPro.Services
                     }
                 }
             }
-            catch
+            catch (Exception)
             {
-
+                throw;
             }
         }
 

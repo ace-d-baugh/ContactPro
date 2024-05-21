@@ -198,6 +198,7 @@ namespace ContactPro.Controllers
             }
 
             ViewData["StatesList"] = new SelectList(Enum.GetValues(typeof(States)).Cast<States>().ToList());
+            ViewData["CategoryList"] = new MultiSelectList(await _addressBookService.GetUserCategoriesAsync(appUserId), "Id", "Name", await _addressBookService.GetContactCategoryIdsAsync(contact.Id));
 
             return View(contact);
         }
@@ -218,6 +219,13 @@ namespace ContactPro.Controllers
             {
                 try
                 {
+                    contact.Created = DateTime.SpecifyKind(contact.Created.Value, DateTimeKind.Utc);
+
+                    if (contact.BirthDate != null)
+                    {
+                        contact.BirthDate = DateTime.SpecifyKind(contact.BirthDate.Value, DateTimeKind.Utc);
+                    }
+
                     _context.Update(contact);
                     await _context.SaveChangesAsync();
                 }

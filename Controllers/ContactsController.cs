@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -11,8 +7,10 @@ using ContactPro.Data;
 using ContactPro.Models;
 using ContactPro.Enums;
 using ContactPro.Services;
+using ContactPro.Models.ViewModels;
 using ContactPro.Services.Interfaces;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace ContactPro.Controllers
 {
@@ -99,6 +97,34 @@ namespace ContactPro.Controllers
             ViewData["CategoryId"] = new SelectList(appUser.Categories, "Id", "Name", 0);
 
             return View(nameof(Index), contacts);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> EmailContact(int id)
+        {
+            string appUserId = _userManager.GetUserId(User);
+            Contact contact = await _context.Contacts.Where(c => c.Id == id && c.AppUserId == appUserId)
+                .FirstOrDefaultAsync();
+
+            if (contact == null)
+            {
+                return NotFound();
+            }
+
+            EmailData emailData = new EmailData()
+            {
+                EmailAddress = contact.Email,
+                FirstName = contact.FirstName,
+                LastName = contact.LastName
+            };
+
+            EmailContactViewModel model = new EmailContactViewModel()
+            {
+                Contact = contact,
+                EmailData = emailData
+            };
+
+            return View(model);
         }
 
         // GET: Contacts/Details/5

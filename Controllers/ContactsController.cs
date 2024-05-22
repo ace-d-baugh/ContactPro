@@ -51,7 +51,9 @@ namespace ContactPro.Controllers
                                       .ThenInclude(c => c.Categories)
                                       .FirstOrDefault(u => u.Id == appUserId);
 
-            var categories = appUser.Categories;
+            var categories = _context.Categories
+                .OrderBy(c => c.Name)
+                .ToList();
 
             if (categoryId == 0)
             {
@@ -61,11 +63,11 @@ namespace ContactPro.Controllers
             }
             else
             {
-                contacts = appUser.Categories.FirstOrDefault(c => c.Id == categoryId)
-                                             .Contacts
-                                             .OrderBy(c => c.LastName)
-                                             .ThenBy(c => c.FirstName)
-                                             .ToList();
+                contacts = _context.Contacts
+                            .Where(c => c.Categories.Any(cat => cat.Id == categoryId))
+                            .OrderBy(c => c.LastName)
+                            .ThenBy(c => c.FirstName)
+                            .ToList();
             }
 
             ViewData["CategoryId"] = new SelectList(categories, "Id", "Name", categoryId);

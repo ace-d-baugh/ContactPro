@@ -25,7 +25,6 @@ namespace ContactPro.Services
 
             newEmail.Sender = MailboxAddress.Parse(emailSender);
 
-            // loop over all the email addresses in the email string and add them to the email to list
             foreach (var emailAddress in email.Split(";"))
             {
                 newEmail.To.Add(MailboxAddress.Parse(emailAddress));

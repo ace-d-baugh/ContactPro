@@ -4,9 +4,8 @@
     {
         public string? Email { get; set; }
         public string? Password { get; set; }
-        public bool UseSsl { get; set; } = true;
         public string? DisplayName { get; set; }
-        public int Port { get; set; } = 587;
+        public int Port { get; set; }
         public string? Host { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿susing ContactPro.Data;
+﻿using ContactPro.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContactPro.Helpers

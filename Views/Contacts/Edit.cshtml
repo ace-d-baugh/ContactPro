@@ -21,9 +21,9 @@
 
             <div class="col-12 col-lg-4">
                 <div class="square-img-container">
-                    @if (Model.ImageData != null)
+                    @if(Model.ImageData != null)
                     {
-                        <img id="conatctImage" class="square-img" src="@ImageService.ConvertByteArrayToFile(Model.ImageData,Model.ImageType!)" />
+                        <img id="contactImage" class="square-img" src="@ImageService.ConvertByteArrayToFile(Model.ImageData!,Model.ImageType!)" />
                     }
                     else
                     {

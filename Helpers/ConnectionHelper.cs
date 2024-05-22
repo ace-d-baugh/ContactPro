@@ -6,9 +6,8 @@ namespace ContactPro.Helpers
     {
         public static string GetConnectionString(IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
             var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-            return string.IsNullOrEmpty(databaseUrl) ? connectionString : BuildConnectionString(databaseUrl);
+            return BuildConnectionString(databaseUrl);
         }
 
         //build the connection string from the environment. i.e. Heroku

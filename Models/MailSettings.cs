@@ -8,6 +8,5 @@
         public string? DisplayName { get; set; }
         public int Port { get; set; } = 587;
         public string? Host { get; set; }
-
     }
 }

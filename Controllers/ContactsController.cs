@@ -137,7 +137,6 @@ namespace ContactPro.Controllers
 
         [HttpPost]
         [Authorize]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EmailContact(EmailContactViewModel ecvm)
         {
             if (ModelState.IsValid)

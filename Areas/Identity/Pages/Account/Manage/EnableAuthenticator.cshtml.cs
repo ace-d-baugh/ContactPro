@@ -181,7 +181,7 @@ namespace ContactPro.Areas.Identity.Pages.Account.Manage
             return string.Format(
                 CultureInfo.InvariantCulture,
                 AuthenticatorUriFormat,
-                _urlEncoder.Encode("WorldAddress"),
+                _urlEncoder.Encode("Contact Pro"),
                 _urlEncoder.Encode(email),
                 unformattedKey);
         }

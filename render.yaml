@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: contact-pro-web
+    env: dotnet
+    plan: free
+    region: ohio
+    buildCommand: |
+      cd ClientApp
+      npm install
+      npm run build --prod
+      cd ..
+      dotnet restore
+      dotnet publish -c Release -o out
+    startCommand: dotnet out/ContactPro.dll
+    repo: https://github.com/ace-d-baugh/ContactPro
+    branch: main
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__DefaultConnection
+        fromDatabase:
+          name: contact-pro-db
+          property: connectionString
+    autoDeploy: true
+    healthCheckPath: /health
+    domains:
+      - contact-pro-demo.onrender.com
+
+  - type: pgsqldatabase
+    name: contact-pro-db
+    plan: free
+    region: ohio
+    ipAllowList: []

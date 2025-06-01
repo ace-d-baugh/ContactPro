@@ -25,9 +25,3 @@ services:
     healthCheckPath: /health
     domains:
       - contact-pro-demo.onrender.com
-
-  - type: pgsqldatabase
-    name: contact-pro-db
-    plan: free
-    region: ohio
-    ipAllowList: []

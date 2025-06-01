@@ -1,27 +1,23 @@
 services:
   - type: web
-    name: contact-pro-web
-    env: dotnet
+    name: contactpro
+    runtime: dotnet
+    buildCommand: dotnet publish -c Release -o output
+    startCommand: dotnet ContactPro.dll
+    env: 
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://*:5000
+      CONNECTIONSTRINGS__DEFAULTCONNECTION: postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+      # Email configuration (set these in Render dashboard)
+      MAILSETTINGS__MAIL: ${MAIL_USER}
+      MAILSETTINGS__DISPLAYNAME: ${MAIL_DISPLAYNAME}
+      MAILSETTINGS__PASSWORD: ${MAIL_PASSWORD}
+      MAILSETTINGS__HOST: ${MAIL_HOST}
+      MAILSETTINGS__PORT: ${MAIL_PORT}
+
+  - type: postgres
+    name: contactpro-db
     plan: free
-    region: ohio
-    buildCommand: |
-      cd ClientApp
-      npm install
-      npm run build --prod
-      cd ..
-      dotnet restore
-      dotnet publish -c Release -o out
-    startCommand: dotnet out/ContactPro.dll
-    repo: https://github.com/ace-d-baugh/ContactPro
-    branch: main
-    envVars:
-      - key: ASPNETCORE_ENVIRONMENT
-        value: Production
-      - key: ConnectionStrings__DefaultConnection
-        fromDatabase:
-          name: contact-pro-db
-          property: connectionString
-    autoDeploy: true
-    healthCheckPath: /health
-    domains:
-      - contact-pro-demo.onrender.com
+    databaseName: contactpro
+    user: contactpro
+

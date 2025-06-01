@@ -15,9 +15,8 @@ services:
       MAILSETTINGS__HOST: ${MAIL_HOST}
       MAILSETTINGS__PORT: ${MAIL_PORT}
 
-  - type: postgres
+  - type: postgresql
     name: contactpro-db
     plan: free
     databaseName: contactpro
     user: contactpro
-
